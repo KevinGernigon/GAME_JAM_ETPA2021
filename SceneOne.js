@@ -1,9 +1,9 @@
 //ressources//
-var eau = 0;
-var soleil = 0;
-var oxygene = 0;
-var terreau = 0;
-var population = 0;
+var eau = 5;
+var soleil = 5;
+var oxygene = 5;
+var terreau = 5;
+var population = 5;
 var texte_eau;
 var texte_soleil;
 var texte_terreau;
@@ -67,6 +67,76 @@ var compteur_rencontre = 0;
 //objectif espace//
 var objectif = 0;
 
+//hud aled//
+var affichage_hud;
+var hud_affiche = false;
+var jauge_soleil_vide;
+var jauge_soleil_1;
+var jauge_soleil_2;
+var jauge_soleil_3;
+var jauge_soleil_4;
+var jauge_soleil_5;
+var jauge_soleil_6;
+var jauge_soleil_7;
+var jauge_soleil_8;
+var jauge_soleil_9;
+var jauge_soleil_10;
+var jauge_eau_vide;
+var jauge_eau_1;
+var jauge_eau_2;
+var jauge_eau_3;
+var jauge_eau_4;
+var jauge_eau_5;
+var jauge_eau_6;
+var jauge_eau_7;
+var jauge_eau_8;
+var jauge_eau_9;
+var jauge_eau_10;
+var jauge_terreau_vide;
+var jauge_terreau_1;
+var jauge_terreau_2;
+var jauge_terreau_3;
+var jauge_terreau_4;
+var jauge_terreau_5;
+var jauge_terreau_6;
+var jauge_terreau_7;
+var jauge_terreau_8;
+var jauge_terreau_9;
+var jauge_terreau_10;
+var jauge_population_vide;
+var jauge_population_1;
+var jauge_population_2;
+var jauge_population_3;
+var jauge_population_4;
+var jauge_population_5;
+var jauge_population_6;
+var jauge_population_7;
+var jauge_population_8;
+var jauge_population_9;
+var jauge_population_10;
+var jauge_objectif_vide;
+var jauge_objectif_1;
+var jauge_objectif_2;
+var jauge_objectif_3;
+var jauge_objectif_4;
+var jauge_objectif_5;
+var jauge_objectif_6;
+var jauge_objectif_7;
+var jauge_objectif_8;
+var jauge_objectif_9;
+var jauge_objectif_10;
+var jauge_oxygene_vide;
+var jauge_oxygene_1;
+var jauge_oxygene_2;
+var jauge_oxygene_3;
+var jauge_oxygene_4;
+var jauge_oxygene_5;
+var jauge_oxygene_6;
+var jauge_oxygene_7;
+var jauge_oxygene_8;
+var jauge_oxygene_9;
+var jauge_oxygene_10;
+
 class SceneOne extends Phaser.Scene{
     constructor(){
         super("sceneOne");
@@ -94,6 +164,20 @@ class SceneOne extends Phaser.Scene{
         //assets boutons//
         this.load.image('bouton_oui', '_assets/bouton_oui.png');
         this.load.image('bouton_non', '_assets/bouton_non.png');
+        
+        //hud//
+        this.load.image('hud', '_assets/placeholder_hud.png');
+        this.load.image('jauge_vide', '_assets/jauge_vide.png');
+        this.load.image('jauge_1', '_assets/jauge_1.png');
+        this.load.image('jauge_2', '_assets/jauge_2.png');
+        this.load.image('jauge_3', '_assets/jauge_3.png');
+        this.load.image('jauge_4', '_assets/jauge_4.png');
+        this.load.image('jauge_5', '_assets/jauge_5.png');
+        this.load.image('jauge_6', '_assets/jauge_6.png');
+        this.load.image('jauge_7', '_assets/jauge_7.png');
+        this.load.image('jauge_8', '_assets/jauge_8.png');
+        this.load.image('jauge_9', '_assets/jauge_9.png');
+        this.load.image('jauge_10', '_assets/jauge_10.png');
     }
     create(){
         
@@ -108,12 +192,88 @@ class SceneOne extends Phaser.Scene{
             escape : Phaser.Input.Keyboard.KeyCodes.ESC    
         });
         
+        //hud//
+        affichage_hud = this.add.image(640, 400, 'hud').setVisible(false);
+        //jauges BEAUCOUP DE JAUGES//
+        //jauges eau//
+        jauge_eau_vide = this.add.image(140, 400, 'jauge_vide').setVisible(false);
+        jauge_eau_1 = this.add.image(140, 400, 'jauge_1').setVisible(false);
+        jauge_eau_2 = this.add.image(140, 400, 'jauge_2').setVisible(false);
+        jauge_eau_3 = this.add.image(140, 400, 'jauge_3').setVisible(false);
+        jauge_eau_4 = this.add.image(140, 400, 'jauge_4').setVisible(false);
+        jauge_eau_5 = this.add.image(140, 400, 'jauge_5').setVisible(false);
+        jauge_eau_6 = this.add.image(140, 400, 'jauge_6').setVisible(false);
+        jauge_eau_7 = this.add.image(140, 400, 'jauge_7').setVisible(false);
+        jauge_eau_8 = this.add.image(140, 400, 'jauge_8').setVisible(false);
+        jauge_eau_9 = this.add.image(140, 400, 'jauge_9').setVisible(false);
+        jauge_eau_10 = this.add.image(140, 400, 'jauge_10').setVisible(false);
+        //jauges soleil//
+        jauge_soleil_vide = this.add.image(353, 400, 'jauge_vide').setVisible(false);
+        jauge_soleil_1 = this.add.image(353, 400, 'jauge_1').setVisible(false);
+        jauge_soleil_2 = this.add.image(353, 400, 'jauge_2').setVisible(false);
+        jauge_soleil_3 = this.add.image(353, 400, 'jauge_3').setVisible(false);
+        jauge_soleil_4 = this.add.image(353, 400, 'jauge_4').setVisible(false);
+        jauge_soleil_5 = this.add.image(353, 400, 'jauge_5').setVisible(false);
+        jauge_soleil_6 = this.add.image(353, 400, 'jauge_6').setVisible(false);
+        jauge_soleil_7 = this.add.image(353, 400, 'jauge_7').setVisible(false);
+        jauge_soleil_8 = this.add.image(353, 400, 'jauge_8').setVisible(false);
+        jauge_soleil_9 = this.add.image(353, 400, 'jauge_9').setVisible(false);
+        jauge_soleil_10 = this.add.image(353, 400, 'jauge_10').setVisible(false);
+        //jauges oxygene//
+        jauge_oxygene_vide = this.add.image(566, 400, 'jauge_vide').setVisible(false);
+        jauge_oxygene_1 = this.add.image(566, 400, 'jauge_1').setVisible(false);
+        jauge_oxygene_2 = this.add.image(566, 400, 'jauge_2').setVisible(false);
+        jauge_oxygene_3 = this.add.image(566, 400, 'jauge_3').setVisible(false);
+        jauge_oxygene_4 = this.add.image(566, 400, 'jauge_4').setVisible(false);
+        jauge_oxygene_5 = this.add.image(566, 400, 'jauge_5').setVisible(false);
+        jauge_oxygene_6 = this.add.image(566, 400, 'jauge_6').setVisible(false);
+        jauge_oxygene_7 = this.add.image(566, 400, 'jauge_7').setVisible(false);
+        jauge_oxygene_8 = this.add.image(566, 400, 'jauge_8').setVisible(false);
+        jauge_oxygene_9 = this.add.image(566, 400, 'jauge_9').setVisible(false);
+        jauge_oxygene_10 = this.add.image(566, 400, 'jauge_10').setVisible(false);
+        //jauges terreau//
+        jauge_terreau_vide = this.add.image(779, 400, 'jauge_vide').setVisible(false);
+        jauge_terreau_1 = this.add.image(779, 400, 'jauge_1').setVisible(false);
+        jauge_terreau_2 = this.add.image(779, 400, 'jauge_2').setVisible(false);
+        jauge_terreau_3 = this.add.image(779, 400, 'jauge_3').setVisible(false);
+        jauge_terreau_4 = this.add.image(779, 400, 'jauge_4').setVisible(false);
+        jauge_terreau_5 = this.add.image(779, 400, 'jauge_5').setVisible(false);
+        jauge_terreau_6 = this.add.image(779, 400, 'jauge_6').setVisible(false);
+        jauge_terreau_7 = this.add.image(779, 400, 'jauge_7').setVisible(false);
+        jauge_terreau_8 = this.add.image(779, 400, 'jauge_8').setVisible(false);
+        jauge_terreau_9 = this.add.image(779, 400, 'jauge_9').setVisible(false);
+        jauge_terreau_10 = this.add.image(779, 400, 'jauge_10').setVisible(false);
+        //jauges population//
+        jauge_population_vide = this.add.image(992, 400, 'jauge_vide').setVisible(false);
+        jauge_population_1 = this.add.image(992, 400, 'jauge_1').setVisible(false);
+        jauge_population_2 = this.add.image(992, 400, 'jauge_2').setVisible(false);
+        jauge_population_3 = this.add.image(992, 400, 'jauge_3').setVisible(false);
+        jauge_population_4 = this.add.image(992, 400, 'jauge_4').setVisible(false);
+        jauge_population_5 = this.add.image(992, 400, 'jauge_5').setVisible(false);
+        jauge_population_6 = this.add.image(992, 400, 'jauge_6').setVisible(false);
+        jauge_population_7 = this.add.image(992, 400, 'jauge_7').setVisible(false);
+        jauge_population_8 = this.add.image(992, 400, 'jauge_8').setVisible(false);
+        jauge_population_9 = this.add.image(992, 400, 'jauge_9').setVisible(false);
+        jauge_population_10 = this.add.image(992, 400, 'jauge_10').setVisible(false);
+        //jauges objectif//
+        jauge_objectif_vide = this.add.image(1205, 400, 'jauge_vide').setVisible(false);
+        jauge_objectif_1 = this.add.image(1205, 400, 'jauge_1').setVisible(false);
+        jauge_objectif_2 = this.add.image(1205, 400, 'jauge_2').setVisible(false);
+        jauge_objectif_3 = this.add.image(1205, 400, 'jauge_3').setVisible(false);
+        jauge_objectif_4 = this.add.image(1205, 400, 'jauge_4').setVisible(false);
+        jauge_objectif_5 = this.add.image(1205, 400, 'jauge_5').setVisible(false);
+        jauge_objectif_6 = this.add.image(1205, 400, 'jauge_6').setVisible(false);
+        jauge_objectif_7 = this.add.image(1205, 400, 'jauge_7').setVisible(false);
+        jauge_objectif_8 = this.add.image(1205, 400, 'jauge_8').setVisible(false);
+        jauge_objectif_9 = this.add.image(1205, 400, 'jauge_9').setVisible(false);
+        jauge_objectif_10 = this.add.image(1205, 400, 'jauge_10').setVisible(false);
+        
         //ressources hud//
-        picto_eau = this.add.sprite(50, 390, 'picto_eau'); 
-        picto_soleil = this.add.sprite(120, 390, 'picto_soleil');
-        picto_terreau = this.add.sprite(190, 390, 'picto_terreau');
-        picto_oxygene = this.add.sprite(260, 390, 'picto_oxygene');
-        picto_population = this.add.sprite(330, 390, 'picto_population');
+        picto_eau = this.add.sprite(50, 390, 'picto_eau').setVisible(false); 
+        picto_soleil = this.add.sprite(120, 390, 'picto_soleil').setVisible(false);
+        picto_terreau = this.add.sprite(190, 390, 'picto_terreau').setVisible(false);
+        picto_oxygene = this.add.sprite(260, 390, 'picto_oxygene').setVisible(false);
+        picto_population = this.add.sprite(330, 390, 'picto_population').setVisible(false);
 
         
         //pictos ressources demandees//
@@ -282,6 +442,949 @@ class SceneOne extends Phaser.Scene{
     }
     update(){
         
+        //hud//
+        if(hud_affiche == false){
+            affichage_hud.setVisible(false);
+            //eau//
+            jauge_eau_vide.setVisible(false);
+            jauge_eau_1.setVisible(false);
+            jauge_eau_2.setVisible(false);
+            jauge_eau_3.setVisible(false);
+            jauge_eau_4.setVisible(false);
+            jauge_eau_5.setVisible(false);
+            jauge_eau_6.setVisible(false);
+            jauge_eau_7.setVisible(false);
+            jauge_eau_8.setVisible(false);
+            jauge_eau_9.setVisible(false);
+            jauge_eau_10.setVisible(false);
+            //soleil//
+            jauge_soleil_vide.setVisible(false);
+            jauge_soleil_1.setVisible(false);
+            jauge_soleil_2.setVisible(false);
+            jauge_soleil_3.setVisible(false);
+            jauge_soleil_4.setVisible(false);
+            jauge_soleil_5.setVisible(false);
+            jauge_soleil_6.setVisible(false);
+            jauge_soleil_7.setVisible(false);
+            jauge_soleil_8.setVisible(false);
+            jauge_soleil_9.setVisible(false);
+            jauge_soleil_10.setVisible(false);
+            //oxygene//
+            jauge_oxygene_vide.setVisible(false);
+            jauge_oxygene_1.setVisible(false);
+            jauge_oxygene_2.setVisible(false);
+            jauge_oxygene_3.setVisible(false);
+            jauge_oxygene_4.setVisible(false);
+            jauge_oxygene_5.setVisible(false);
+            jauge_oxygene_6.setVisible(false);
+            jauge_oxygene_7.setVisible(false);
+            jauge_oxygene_8.setVisible(false);
+            jauge_oxygene_9.setVisible(false);
+            jauge_oxygene_10.setVisible(false);
+            //terreau//
+            jauge_terreau_vide.setVisible(false);
+            jauge_terreau_1.setVisible(false);
+            jauge_terreau_2.setVisible(false);
+            jauge_terreau_3.setVisible(false);
+            jauge_terreau_4.setVisible(false);
+            jauge_terreau_5.setVisible(false);
+            jauge_terreau_6.setVisible(false);
+            jauge_terreau_7.setVisible(false);
+            jauge_terreau_8.setVisible(false);
+            jauge_terreau_9.setVisible(false);
+            jauge_terreau_10.setVisible(false);
+            //population//
+            jauge_population_vide.setVisible(false);
+            jauge_population_1.setVisible(false);
+            jauge_population_2.setVisible(false);
+            jauge_population_3.setVisible(false);
+            jauge_population_4.setVisible(false);
+            jauge_population_5.setVisible(false);
+            jauge_population_6.setVisible(false);
+            jauge_population_7.setVisible(false);
+            jauge_population_8.setVisible(false);
+            jauge_population_9.setVisible(false);
+            jauge_population_10.setVisible(false);
+            //objectif//
+            jauge_objectif_vide.setVisible(false);
+            jauge_objectif_1.setVisible(false);
+            jauge_objectif_2.setVisible(false);
+            jauge_objectif_3.setVisible(false);
+            jauge_objectif_4.setVisible(false);
+            jauge_objectif_5.setVisible(false);
+            jauge_objectif_6.setVisible(false);
+            jauge_objectif_7.setVisible(false);
+            jauge_objectif_8.setVisible(false);
+            jauge_objectif_9.setVisible(false);
+            jauge_objectif_10.setVisible(false);
+        }
+        else if (hud_affiche == true){
+            affichage_hud.setVisible(true);
+            //jauges eau//
+            if(eau == 10){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(true);
+            }
+            if(eau == 9){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(true);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 8){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(true);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 7){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(true);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 6){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(true);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 5){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(true);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 4){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(true);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 3){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(true);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 2){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(true);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 1){
+                jauge_eau_vide.setVisible(false);
+                jauge_eau_1.setVisible(true);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            if(eau == 0){
+                jauge_eau_vide.setVisible(true);
+                jauge_eau_1.setVisible(false);
+                jauge_eau_2.setVisible(false);
+                jauge_eau_3.setVisible(false);
+                jauge_eau_4.setVisible(false);
+                jauge_eau_5.setVisible(false);
+                jauge_eau_6.setVisible(false);
+                jauge_eau_7.setVisible(false);
+                jauge_eau_8.setVisible(false);
+                jauge_eau_9.setVisible(false);
+                jauge_eau_10.setVisible(false);
+            }
+            //jauges soleil//
+            if(soleil == 10){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(true);
+            }
+            if(soleil == 9){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(true);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 8){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(true);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 7){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(true);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 6){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(true);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 5){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(true);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 4){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(true);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 3){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(true);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 2){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(true);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 1){
+                jauge_soleil_vide.setVisible(false);
+                jauge_soleil_1.setVisible(true);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            if(soleil == 0){
+                jauge_soleil_vide.setVisible(true);
+                jauge_soleil_1.setVisible(false);
+                jauge_soleil_2.setVisible(false);
+                jauge_soleil_3.setVisible(false);
+                jauge_soleil_4.setVisible(false);
+                jauge_soleil_5.setVisible(false);
+                jauge_soleil_6.setVisible(false);
+                jauge_soleil_7.setVisible(false);
+                jauge_soleil_8.setVisible(false);
+                jauge_soleil_9.setVisible(false);
+                jauge_soleil_10.setVisible(false);
+            }
+            //jauges terreau//
+            if(terreau == 10){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(true);
+            }
+            if(terreau == 9){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(true);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 8){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(true);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 7){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(true);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 6){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(true);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 5){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(true);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 4){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(true);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 3){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(true);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 2){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(true);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 1){
+                jauge_terreau_vide.setVisible(false);
+                jauge_terreau_1.setVisible(true);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            if(terreau == 0){
+                jauge_terreau_vide.setVisible(true);
+                jauge_terreau_1.setVisible(false);
+                jauge_terreau_2.setVisible(false);
+                jauge_terreau_3.setVisible(false);
+                jauge_terreau_4.setVisible(false);
+                jauge_terreau_5.setVisible(false);
+                jauge_terreau_6.setVisible(false);
+                jauge_terreau_7.setVisible(false);
+                jauge_terreau_8.setVisible(false);
+                jauge_terreau_9.setVisible(false);
+                jauge_terreau_10.setVisible(false);
+            }
+            //jauges oxygene//
+            if(oxygene == 10){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(true);
+            }
+            if(oxygene == 9){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(true);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 8){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(true);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 7){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(true);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 6){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(true);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 5){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(true);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 4){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(true);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 3){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(true);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 2){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(true);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 1){
+                jauge_oxygene_vide.setVisible(false);
+                jauge_oxygene_1.setVisible(true);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            if(oxygene == 0){
+                jauge_oxygene_vide.setVisible(true);
+                jauge_oxygene_1.setVisible(false);
+                jauge_oxygene_2.setVisible(false);
+                jauge_oxygene_3.setVisible(false);
+                jauge_oxygene_4.setVisible(false);
+                jauge_oxygene_5.setVisible(false);
+                jauge_oxygene_6.setVisible(false);
+                jauge_oxygene_7.setVisible(false);
+                jauge_oxygene_8.setVisible(false);
+                jauge_oxygene_9.setVisible(false);
+                jauge_oxygene_10.setVisible(false);
+            }
+            //jauges population//
+            if(population == 10){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(true);
+            }
+            if(population == 9){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(true);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 8){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(true);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 7){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(true);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 6){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(true);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 5){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(true);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 4){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(true);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 3){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(true);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 2){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(true);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 1){
+                jauge_population_vide.setVisible(false);
+                jauge_population_1.setVisible(true);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            if(population == 0){
+                jauge_population_vide.setVisible(true);
+                jauge_population_1.setVisible(false);
+                jauge_population_2.setVisible(false);
+                jauge_population_3.setVisible(false);
+                jauge_population_4.setVisible(false);
+                jauge_population_5.setVisible(false);
+                jauge_population_6.setVisible(false);
+                jauge_population_7.setVisible(false);
+                jauge_population_8.setVisible(false);
+                jauge_population_9.setVisible(false);
+                jauge_population_10.setVisible(false);
+            }
+            //jauges objectif//
+            if(objectif == 10){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(true);
+            }
+            if(objectif == 9){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(true);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 8){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(true);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 7){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(true);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 6){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(true);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 5){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(true);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 4){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(true);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 3){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(true);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 2){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(true);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 1){
+                jauge_objectif_vide.setVisible(false);
+                jauge_objectif_1.setVisible(true);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+            if(objectif == 0){
+                jauge_objectif_vide.setVisible(true);
+                jauge_objectif_1.setVisible(false);
+                jauge_objectif_2.setVisible(false);
+                jauge_objectif_3.setVisible(false);
+                jauge_objectif_4.setVisible(false);
+                jauge_objectif_5.setVisible(false);
+                jauge_objectif_6.setVisible(false);
+                jauge_objectif_7.setVisible(false);
+                jauge_objectif_8.setVisible(false);
+                jauge_objectif_9.setVisible(false);
+                jauge_objectif_10.setVisible(false);
+            }
+        }
         //objectif atteint//
         if (objectif == 10){
             plante_presente = true;
