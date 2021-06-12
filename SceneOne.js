@@ -953,7 +953,7 @@ class SceneOne extends Phaser.Scene{
                 jauge_terreau_10.setVisible(false);
             }
             //jauges oxygene//
-            if(oxygene == 10){
+            if(oxygene >= 10){
                 jauge_oxygene_vide.setVisible(false);
                 jauge_oxygene_1.setVisible(false);
                 jauge_oxygene_2.setVisible(false);
