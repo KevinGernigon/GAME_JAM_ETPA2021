@@ -199,17 +199,17 @@ class SceneOne extends Phaser.Scene{
         
         //hud//
         this.load.image('hud', '_assets/placeholder_hud.png');
-        this.load.image('jauge_vide', '_assets/jauge_vide.png');
-        this.load.image('jauge_1', '_assets/jauge_1.png');
-        this.load.image('jauge_2', '_assets/jauge_2.png');
-        this.load.image('jauge_3', '_assets/jauge_3.png');
-        this.load.image('jauge_4', '_assets/jauge_4.png');
-        this.load.image('jauge_5', '_assets/jauge_5.png');
-        this.load.image('jauge_6', '_assets/jauge_6.png');
-        this.load.image('jauge_7', '_assets/jauge_7.png');
-        this.load.image('jauge_8', '_assets/jauge_8.png');
-        this.load.image('jauge_9', '_assets/jauge_9.png');
-        this.load.image('jauge_10', '_assets/jauge_10.png');
+        this.load.image('jauge_vide', '_assets/_ui/jauge_vide.png');
+        this.load.image('jauge_1', '_assets/_ui/jauge_1.png');
+        this.load.image('jauge_2', '_assets/_ui/jauge_2.png');
+        this.load.image('jauge_3', '_assets/_ui/jauge_3.png');
+        this.load.image('jauge_4', '_assets/_ui/jauge_4.png');
+        this.load.image('jauge_5', '_assets/_ui/jauge_5.png');
+        this.load.image('jauge_6', '_assets/_ui/jauge_6.png');
+        this.load.image('jauge_7', '_assets/_ui/jauge_7.png');
+        this.load.image('jauge_8', '_assets/_ui/jauge_8.png');
+        this.load.image('jauge_9', '_assets/_ui/jauge_9.png');
+        this.load.image('jauge_10', '_assets/_ui/jauge_10.png');
         
         //background//
         this.load.image('bg_jour_1', '_assets/_decor/fond_espace/jour1.png');
