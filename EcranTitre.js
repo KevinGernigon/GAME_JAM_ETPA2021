@@ -22,8 +22,11 @@ class EcranTitre extends Phaser.Scene{
         this.load.spritesheet('spritesheet_quitter', '_assets/_ecranTitre/spritehseet_quitter.png',{frameWidth:100 , frameHeight:100});
         this.load.spritesheet('spritesheet_credits', '_assets/_ecranTitre/credits_spritesheet.png',{frameWidth:101 , frameHeight:101});
         this.load.image('generique', '_assets/_ecranTitre/generique.png');
+        this.load.audio('son_generique', '_sounds/musiqueGenerique.mp3');
     }
     create(){
+        
+        son_generique = this.sound.add('son_generique');
         
         background_titre = this.add.image(640, 216, 'ecran_titre');
         
@@ -116,6 +119,7 @@ class EcranTitre extends Phaser.Scene{
         });
         
         bouton_credits.on('pointerdown', function(){
+            son_generique.play();
             bouton_credits.anims.play('credits_click', true);
             ecran_credits.setVisible(true);
             deroulement = true;
