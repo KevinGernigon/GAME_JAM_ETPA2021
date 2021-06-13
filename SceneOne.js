@@ -197,6 +197,13 @@ var blackscreen;
 var deroulement_commence = false;
 var deroulement_2 = false;
 
+//musique//
+var theme_musique;
+var ambiance_musique;
+var son_generique;
+var son_defaite;
+var son_victoire;
+
 class SceneOne extends Phaser.Scene{
     constructor(){
         super("sceneOne");
@@ -226,7 +233,7 @@ class SceneOne extends Phaser.Scene{
         this.load.image('bouton_non', '_assets/_ui/pouceRouge.png');
         
         //hud//
-        this.load.image('hud', '_assets/placeholder_hud.png');
+        this.load.image('hud', '_assets/_ui/zoneJauge.png');
         this.load.image('jauge_vide', '_assets/_ui/jauge_vide.png');
         this.load.image('jauge_1', '_assets/_ui/jauge_1.png');
         this.load.image('jauge_2', '_assets/_ui/jauge_2.png');
@@ -272,10 +279,26 @@ class SceneOne extends Phaser.Scene{
         
         this.load.image('blackscreen', '_assets/_ui/ecran_noir.jpg');
         
+        //musiques//
+        this.load.audio('ambiance_fond', '_sounds/ambianceFond.mp3');
+        this.load.audio('ambiance_musique', '_sounds/musiqueFond.mp3');
+        this.load.audio('son_generique', '_sounds/musiqueGenerique.mp3');
+        this.load.audio('son_defaite', '_sounds/son_defaite.mp3');
+        this.load.audio('son_victoire', '_sounds/son_victoire.mp3');
     }
     create(){
         
+        //muisque//
+        theme_musique = this.sound.add('ambiance_fond');
+        ambiance_musique = this.sound.add('ambiance_musique');
+        son_generique = this.sound.add('son_generique');
+        son_defaite = this.sound.add('son_defaite');
+        son_victoire = this.sound.add('son_victoire');
+        theme_musique.loop = true;
+        ambiance_musique.loop = true;
         
+        theme_musique.play();
+        ambiance_musique.play();
         
         //controles//
         keys = this.input.keyboard.addKeys({
@@ -622,6 +645,9 @@ class SceneOne extends Phaser.Scene{
         //gameOver//
         if (gameOver == false){
             if (eau <= 0 || oxygene <= 0 || population <= 0 || soleil <= 0 || terreau <= 0){
+                theme_musique.stop();
+                ambiance_musique.stop();
+                son_defaite.play();
                 gameOver = true;
                 plante_presente = true;
                 plante_cree = true;
@@ -1735,20 +1761,29 @@ class SceneOne extends Phaser.Scene{
             }
         }
         //objectif atteint//
-        if (objectif == 10){
+        if (objectif == 10 && deroulement_commence == false){
+            deroulement_commence = true;
+            deroulement_2 = true;
             plante_presente = true;
             plante_cree = true;
             banquier_doit_partir = true;
-            ecran_titre_2.setVisible(true);
-            if (deroulement_2 == true){
-                ecran_titre_2.setVelocityY(-100);
-            }
+            theme_musique.stop();
+            ambiance_musique.stop();
+            son_victoire.play();
             setTimeout(function(){
-                deroulement_2 = false;
-                ecran_titre_2.destroy();
-                blackscreen.setVisible(true);
-            }, 24000);
+                son_generique.play();
+                ecran_titre_2.setVisible(true);
+                if (deroulement_2 == true){
+                    ecran_titre_2.setVelocityY(-100);
+                }
+                setTimeout(function(){
+                    deroulement_2 = false;
+                    ecran_titre_2.destroy();
+                    blackscreen.setVisible(true);
+                }, 24000);
+            }, 19000);
         }
+        
         
         if(plante_presente == true && plante_cree == true && numero_random == 2 && coffre_genere == false && proc_banquier == false){
             coffre_genere = true;
