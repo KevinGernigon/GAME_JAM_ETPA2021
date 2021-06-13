@@ -192,6 +192,7 @@ var ecran_noir;
 var fleche_utilisee = false;
 
 var ecran_titre_2;
+var blackscreen;
 
 var deroulement_commence = false;
 var deroulement_2 = false;
