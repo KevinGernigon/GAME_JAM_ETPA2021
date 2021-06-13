@@ -28,6 +28,8 @@ var new_plante_astronaute;
 var new_plante_meteo;
 var new_plante_scientifique;
 var new_plante_banquiere;
+var new_plante_banquiere_2;
+var new_plante_banquiere_3;
 var new_plante_exploratrice;
 var new_plante_coffre;
 
@@ -137,6 +139,36 @@ var jauge_oxygene_8;
 var jauge_oxygene_9;
 var jauge_oxygene_10;
 
+//anti cheese//
+var compteur_refus = 0;
+
+//background//
+var background_1;
+var background_2;
+var background_3;
+var background_4;
+var background_5;
+var background_6;
+var background_7;
+var background_8;
+var background_9;
+
+//vitre//
+var compteur_vitre = 0;
+var vitre_1;
+var vitre_2;
+var vitre_3;
+var vitre_4;
+var vitre_5;
+
+//disjoncteur//
+var compteur_disjoncteur = 0;
+var disjoncteur_1;
+var disjoncteur_2;
+var disjoncteur_3;
+var disjoncteur_4;
+var disjoncteur_5;
+
 class SceneOne extends Phaser.Scene{
     constructor(){
         super("sceneOne");
@@ -146,13 +178,13 @@ class SceneOne extends Phaser.Scene{
     }
     preload(){
         //assets plantes//
-        this.load.image('plante_carnivore', '_assets/placeholder_plante_carnivore.png');
-        this.load.image('plante_astronaute', '_assets/placeholder_plante_astronaute.png');
-        this.load.image('plante_meteo', '_assets/placeholder_plante_meteorologiste.png');
-        this.load.image('plante_scientifique', '_assets/placeholder_plante_scientifique.png');
-        this.load.image('plante_banquiere', '_assets/placeholder_plante_banquiere.png');
-        this.load.image('plante_exploratrice', '_assets/placeholder_plante_exploratrice.png');
-        this.load.image('plante_coffre', '_assets/placeholder_plante_coffre.png');
+        this.load.image('plante_carnivore', '_assets/_perso/reine.png');
+        this.load.image('plante_astronaute', '_assets/_perso/astronaute.png');
+        this.load.image('plante_meteo', '_assets/_perso/meteorologiste.png');
+        this.load.image('plante_scientifique', '_assets/_perso/scientifique.png');
+        this.load.image('plante_banquiere', '_assets/_perso/banquiere.png');
+        this.load.image('plante_exploratrice', '_assets/_perso/exploratrice.png');
+        this.load.image('plante_coffre', '_assets/_perso/sac.png');
         
         //assets picto//
         this.load.image('picto_eau', '_assets/picto_eau.png');
@@ -167,17 +199,42 @@ class SceneOne extends Phaser.Scene{
         
         //hud//
         this.load.image('hud', '_assets/placeholder_hud.png');
-        this.load.image('jauge_vide', '_assets/jauge_vide.png');
-        this.load.image('jauge_1', '_assets/jauge_1.png');
-        this.load.image('jauge_2', '_assets/jauge_2.png');
-        this.load.image('jauge_3', '_assets/jauge_3.png');
-        this.load.image('jauge_4', '_assets/jauge_4.png');
-        this.load.image('jauge_5', '_assets/jauge_5.png');
-        this.load.image('jauge_6', '_assets/jauge_6.png');
-        this.load.image('jauge_7', '_assets/jauge_7.png');
-        this.load.image('jauge_8', '_assets/jauge_8.png');
-        this.load.image('jauge_9', '_assets/jauge_9.png');
-        this.load.image('jauge_10', '_assets/jauge_10.png');
+        this.load.image('jauge_vide', '_assets/_ui/jauge_vide.png');
+        this.load.image('jauge_1', '_assets/_ui/jauge_1.png');
+        this.load.image('jauge_2', '_assets/_ui/jauge_2.png');
+        this.load.image('jauge_3', '_assets/_ui/jauge_3.png');
+        this.load.image('jauge_4', '_assets/_ui/jauge_4.png');
+        this.load.image('jauge_5', '_assets/_ui/jauge_5.png');
+        this.load.image('jauge_6', '_assets/_ui/jauge_6.png');
+        this.load.image('jauge_7', '_assets/_ui/jauge_7.png');
+        this.load.image('jauge_8', '_assets/_ui/jauge_8.png');
+        this.load.image('jauge_9', '_assets/_ui/jauge_9.png');
+        this.load.image('jauge_10', '_assets/_ui/jauge_10.png');
+        
+        //background//
+        this.load.image('bg_jour_1', '_assets/_decor/fond_espace/jour1.png');
+        this.load.image('bg_jour_2', '_assets/_decor/fond_espace/jour2.png');
+        this.load.image('bg_jour_3', '_assets/_decor/fond_espace/jour3.png');
+        this.load.image('bg_jour_4', '_assets/_decor/fond_espace/jour4.png');
+        this.load.image('bg_jour_5', '_assets/_decor/fond_espace/jour5.png');
+        this.load.image('bg_jour_6', '_assets/_decor/fond_espace/jour6.png');
+        this.load.image('bg_jour_7', '_assets/_decor/fond_espace/jour7.png');
+        this.load.image('bg_jour_8', '_assets/_decor/fond_espace/jour8.png');
+        this.load.image('bg_jour_9', '_assets/_decor/fond_espace/jour9.png');
+        
+        //vitre//
+        this.load.image('vitre_1', '_assets/_decor/etat_verre/vaisseau_casse4.png');
+        this.load.image('vitre_2', '_assets/_decor/etat_verre/vaisseau_casse3.png');
+        this.load.image('vitre_3', '_assets/_decor/etat_verre/vaisseau_casse2.png');
+        this.load.image('vitre_4', '_assets/_decor/etat_verre/vaisseau_casse1.png');
+        this.load.image('vitre_5', '_assets/_decor/etat_verre/vaisseau_casse0.png');
+        
+        //disjoncteur//
+        this.load.image('disjoncteur_1', '_assets/_decor/etat_disjoncteur/niveau0.png');
+        this.load.image('disjoncteur_2', '_assets/_decor/etat_disjoncteur/niveau1.png');
+        this.load.image('disjoncteur_3', '_assets/_decor/etat_disjoncteur/niveau2.png');
+        this.load.image('disjoncteur_4', '_assets/_decor/etat_disjoncteur/niveau3.png');
+        this.load.image('disjoncteur_5', '_assets/_decor/etat_disjoncteur/niveau4.png');
     }
     create(){
         
@@ -191,6 +248,31 @@ class SceneOne extends Phaser.Scene{
             shift: Phaser.Input.Keyboard.KeyCodes.SHIFT,
             escape : Phaser.Input.Keyboard.KeyCodes.ESC    
         });
+        
+        //background//
+        background_1 = this.add.image(640, 216, 'bg_jour_1').setVisible(false);
+        background_2 = this.add.image(640, 216, 'bg_jour_2').setVisible(false);
+        background_3 = this.add.image(640, 216, 'bg_jour_3').setVisible(false);
+        background_4 = this.add.image(640, 216, 'bg_jour_4').setVisible(false);
+        background_5 = this.add.image(640, 216, 'bg_jour_5').setVisible(false);
+        background_6 = this.add.image(640, 216, 'bg_jour_6').setVisible(false);
+        background_7 = this.add.image(640, 216, 'bg_jour_7').setVisible(false);
+        background_8 = this.add.image(640, 216, 'bg_jour_8').setVisible(false);
+        background_9 = this.add.image(640, 216, 'bg_jour_9').setVisible(false);
+        
+        //vitre//
+        vitre_1 = this.add.image(640, 216, 'vitre_1').setVisible(false);
+        vitre_2 = this.add.image(640, 216, 'vitre_2').setVisible(false);
+        vitre_3 = this.add.image(640, 216, 'vitre_3').setVisible(false);
+        vitre_4 = this.add.image(640, 216, 'vitre_4').setVisible(false);
+        vitre_5 = this.add.image(640, 216, 'vitre_5').setVisible(false);
+        
+        //disjoncteur//
+        disjoncteur_1 = this.add.image(550, 325, 'disjoncteur_1').setVisible(false);
+        disjoncteur_2 = this.add.image(550, 325, 'disjoncteur_2').setVisible(false);
+        disjoncteur_3 = this.add.image(550, 325, 'disjoncteur_3').setVisible(false);
+        disjoncteur_4 = this.add.image(550, 325, 'disjoncteur_4').setVisible(false);
+        disjoncteur_5 = this.add.image(550, 325, 'disjoncteur_5').setVisible(false);
         
         //hud//
         affichage_hud = this.add.image(640, 400, 'hud').setVisible(false);
@@ -282,8 +364,8 @@ class SceneOne extends Phaser.Scene{
         demande_oxygene = this.add.sprite(650, 240, 'picto_oxygene').setVisible(false);
         demande_terreau = this.add.sprite(650, 300, 'picto_terreau').setVisible(false);
               
-        //assets//
-        plante_carnivore = this.add.sprite(100, 200, 'plante_carnivore');
+        //plantes//
+        plante_carnivore = this.add.sprite(180, 220, 'plante_carnivore');
         
         plante_astronaute = this.physics.add.group();
         plante_meteo = this.physics.add.group();
@@ -293,8 +375,8 @@ class SceneOne extends Phaser.Scene{
         plante_coffre = this.physics.add.group();
         
         //boutons//
-        bouton_oui = this.add.sprite(200, 150, 'bouton_oui').setVisible(false);
-        bouton_non = this.add.sprite(200, 250, 'bouton_non').setVisible(false);
+        bouton_oui = this.add.sprite(350, 150, 'bouton_oui').setVisible(false);
+        bouton_non = this.add.sprite(350, 250, 'bouton_non').setVisible(false);
         bouton_oui.setInteractive();
         bouton_non.setInteractive();
         
@@ -316,6 +398,7 @@ class SceneOne extends Phaser.Scene{
             if (plante_presente == true && numero_random == 1 && plante_cree == true && proc_banquier == false){
                 oxygene = oxygene - 1;
                 objectif = objectif + 1;
+                compteur_vitre = compteur_vitre + 1;
                 new_plante_astronaute.setVelocityX(300);
                 demande_eau.setVisible(false);
                 demande_soleil.setVisible(false);
@@ -375,6 +458,7 @@ class SceneOne extends Phaser.Scene{
             if (plante_presente == true && numero_random == 4 && plante_cree == true && proc_banquier == false){
                 terreau = terreau - 1;
                 objectif = objectif + 1;
+                compteur_disjoncteur = compteur_disjoncteur + 1;
                 new_plante_scientifique.setVelocityX(300);
                 demande_eau.setVisible(false);
                 demande_soleil.setVisible(false);
@@ -396,6 +480,7 @@ class SceneOne extends Phaser.Scene{
         bouton_non.on('pointerdown', function(){
             bouton_oui.setVisible(false);
             bouton_non.setVisible(false);
+            compteur_refus = compteur_refus + 1;
             if (plante_presente == true && numero_random == 0 && plante_cree == true && proc_banquier == false){
                 new_plante_exploratrice.setVelocityX(300);
                 demande_eau.setVisible(false);
@@ -441,6 +526,86 @@ class SceneOne extends Phaser.Scene{
         
     }
     update(){
+        
+        //affichage background selon jour//
+        if(jour == 0){
+            background_9.setVisible(false);
+            background_1.setVisible(true);
+        }
+        if(jour == 1){
+            background_1.setVisible(false);
+            background_2.setVisible(true);
+        }
+        if(jour == 2){
+            background_2.setVisible(false);
+            background_3.setVisible(true);
+        }
+        if(jour == 3){
+            background_3.setVisible(false);
+            background_4.setVisible(true);
+        }
+        if(jour == 4){
+            background_4.setVisible(false);
+            background_5.setVisible(true);
+        }
+        if(jour == 5){
+            background_5.setVisible(false);
+            background_6.setVisible(true);
+        }
+        if(jour == 6){
+            background_6.setVisible(false);
+            background_7.setVisible(true);
+        }
+        if(jour == 7){
+            background_7.setVisible(false);
+            background_8.setVisible(true);
+        }
+        if(jour == 8){
+            background_8.setVisible(false);
+            background_9.setVisible(true);
+        }
+        
+        //affichage vitre//
+        if(compteur_vitre == 0){
+            vitre_1.setVisible(true);
+        }
+        if(compteur_vitre == 1){
+            vitre_1.setVisible(false);
+            vitre_2.setVisible(true);
+        }
+        if(compteur_vitre == 2){
+            vitre_2.setVisible(false);
+            vitre_3.setVisible(true);
+        }
+        if(compteur_vitre == 3){
+            vitre_3.setVisible(false);
+            vitre_4.setVisible(true);
+        }
+        if(compteur_vitre == 4){
+            vitre_4.setVisible(false);
+            vitre_5.setVisible(true);
+        }
+        
+        //affichage disjoncteur//
+        if(compteur_disjoncteur == 0){
+            disjoncteur_5.setVisible(true);
+        }
+        if(compteur_disjoncteur == 1){
+            disjoncteur_5.setVisible(false);
+            disjoncteur_4.setVisible(true);
+        }
+        if(compteur_disjoncteur == 2){
+            disjoncteur_4.setVisible(false);
+            disjoncteur_3.setVisible(true);
+        }
+        if(compteur_disjoncteur == 3){
+            disjoncteur_3.setVisible(false);
+            disjoncteur_2.setVisible(true);
+        }
+        if(compteur_disjoncteur == 4){
+            disjoncteur_2.setVisible(false);
+            disjoncteur_1.setVisible(true);
+        }
         
         //hud//
         if(hud_affiche == false){
@@ -1390,7 +1555,7 @@ class SceneOne extends Phaser.Scene{
             plante_presente = true;
             plante_cree = true;
             banquier_doit_partir = true;
-            this.add.texte(400, 200, 'youpi direction espace', {fontSize: '48px', fill: '#FFF'});
+            this.add.text(400, 200, 'youpi direction espace', {fontSize: '48px', fill: '#FFF'});
         }
         
         if(plante_presente == true && plante_cree == true && numero_random == 2 && coffre_genere == false && proc_banquier == false){
@@ -1409,7 +1574,7 @@ class SceneOne extends Phaser.Scene{
         //arrivee plantes a l'ecran
         if (plante_presente == true && numero_random == 0 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
             plante_cree = true;
-            new_plante_exploratrice = plante_exploratrice.create(1400, 200, 'plante_exploratrice');
+            new_plante_exploratrice = plante_exploratrice.create(1400, 300, 'plante_exploratrice');
             new_plante_exploratrice.setVelocityX(-300);
             setTimeout(function(){
                 new_plante_exploratrice.setVelocityX(0);
@@ -1424,7 +1589,7 @@ class SceneOne extends Phaser.Scene{
         
         if (plante_presente == true && numero_random == 1 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
             plante_cree = true;
-            new_plante_astronaute = plante_astronaute.create(1400, 200, 'plante_astronaute');
+            new_plante_astronaute = plante_astronaute.create(1400, 300, 'plante_astronaute');
             new_plante_astronaute.setVelocityX(-300);
             setTimeout(function(){
                 new_plante_astronaute.setVelocityX(0);
@@ -1436,7 +1601,7 @@ class SceneOne extends Phaser.Scene{
         
         if (plante_presente == true && numero_random == 2 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
             plante_cree = true;
-            new_plante_coffre = plante_coffre.create(1400, 200, 'plante_coffre');
+            new_plante_coffre = plante_coffre.create(1400, 300, 'plante_coffre');
             new_plante_coffre.setVelocityX(-300);
             setTimeout(function(){
                 new_plante_coffre.setVelocityX(0);
@@ -1447,7 +1612,7 @@ class SceneOne extends Phaser.Scene{
         
         if (plante_presente == true && numero_random == 3 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
             plante_cree = true;
-            new_plante_meteo = plante_meteo.create(1400, 200, 'plante_meteo');
+            new_plante_meteo = plante_meteo.create(1400, 300, 'plante_meteo');
             new_plante_meteo.setVelocityX(-300);
             setTimeout(function(){
                 new_plante_meteo.setVelocityX(0);
@@ -1461,7 +1626,7 @@ class SceneOne extends Phaser.Scene{
         
         if (plante_presente == true && numero_random == 4 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
             plante_cree = true;
-            new_plante_scientifique = plante_scientifique.create(1400, 200, 'plante_scientifique');
+            new_plante_scientifique = plante_scientifique.create(1400, 300, 'plante_scientifique');
             new_plante_scientifique.setVelocityX(-300);
             setTimeout(function(){
                 new_plante_scientifique.setVelocityX(0);
@@ -1471,18 +1636,53 @@ class SceneOne extends Phaser.Scene{
             }, 2000);
         }
         
-        //reset journee//
+        //reset journee, arrivee banquier//
         if(compteur_rencontre == 4 && banquier_doit_partir == false){
-            proc_banquier = true;
-            plante_presente = true;
-            plante_cree = true;
-            banquier_doit_partir = true;
-            new_plante_banquiere = plante_banquiere.create(1400, 200, 'plante_banquiere');
-            new_plante_banquiere.setVelocityX(-300);
-            setTimeout(function(){
-                new_plante_banquiere.setVelocityX(0);
-                bouton_oui.setVisible(true);
-            }, 2000);
+            if(compteur_refus < 3){
+                var round_eau_soleil = Math.round((eau + soleil)/2);
+                population = population + round_eau_soleil;
+                proc_banquier = true;
+                plante_presente = true;
+                plante_cree = true;
+                banquier_doit_partir = true;
+                new_plante_banquiere = plante_banquiere.create(1400, 300, 'plante_banquiere');
+                new_plante_banquiere.setVelocityX(-300);
+                setTimeout(function(){
+                    new_plante_banquiere.setVelocityX(0);
+                    bouton_oui.setVisible(true);
+                }, 2000);
+            }
+            if(compteur_refus == 3){
+                var round_eau_soleil = Math.round((eau + soleil)/2);
+                population = population + round_eau_soleil;
+                proc_banquier = true;
+                plante_presente = true;
+                plante_cree = true;
+                banquier_doit_partir = true;
+                new_plante_banquiere = plante_banquiere.create(1400, 280, 'plante_banquiere');
+                setTimeout(function(){
+                    new_plante_banquiere_2 = plante_banquiere.create(1400, 280, 'plante_banquiere');
+                    new_plante_banquiere_2.setVelocityX(-300);
+                }, 200);
+                setTimeout(function(){
+                    new_plante_banquiere_3 = plante_banquiere.create(1400, 280, 'plante_banquiere');
+                    new_plante_banquiere_3.setVelocityX(-300);
+                }, 400);
+                //new_plante_banquiere = plante_banquiere.create(1400, 200, 'plante_banquiere');
+                new_plante_banquiere.setVelocityX(-300);
+                setTimeout(function(){
+                    new_plante_banquiere.setVelocityX(0);
+                    bouton_oui.setVisible(true);
+                }, 2400);
+                setTimeout(function(){
+                    new_plante_banquiere_2.setVelocityX(0);
+                    bouton_oui.setVisible(true);
+                }, 2000);
+                setTimeout(function(){
+                    new_plante_banquiere_3.setVelocityX(0);
+                    bouton_oui.setVisible(true);
+                }, 1600);
+            }
         }
     }
 }
@@ -1527,23 +1727,41 @@ function remove_scientifique(){
     }, 2000);
 }
 function remove_banquier(){
-    setTimeout(function(){
-        new_plante_banquiere.destroy();
-        banquier_doit_partir = false;
-        proc_banquier = false;
-        plante_presente = false;
-        plante_cree = false;
-            
-    }, 2000);
-    compteur_rencontre = 0;  
-    jour = jour + 1;
-    if (eau + soleil >= 2 && eau + soleil < 4){
-        oxygene = oxygene + 2;
+    if(compteur_refus < 3){
+        setTimeout(function(){
+            new_plante_banquiere.destroy();
+            banquier_doit_partir = false;
+            proc_banquier = false;
+            plante_presente = false;
+            plante_cree = false;
+
+        }, 2000);
+        compteur_rencontre = 0;  
+        jour = jour + 1;
+        if (eau + soleil >= 2 && eau + soleil < 4){
+            oxygene = oxygene + 2;
+        }
+        if (eau + soleil >= 4 && eau + soleil < 6){
+            oxygene = oxygene + 4;
+        }
+        if (eau + soleil >= 6){
+            oxygene = oxygene + 6;
+        }
     }
-    if (eau + soleil >= 4 && eau + soleil < 6){
-        oxygene = oxygene + 4;
-    }
-    if (eau + soleil >= 6){
-        oxygene = oxygene + 6;
+    if(compteur_refus == 3){
+        setTimeout(function(){
+            new_plante_banquiere.destroy();
+            new_plante_banquiere_2.destroy();
+            new_plante_banquiere_3.destroy();
+            banquier_doit_partir = false;
+            proc_banquier = false;
+            plante_presente = false;
+            plante_cree = false;
+        }, 2000);
+        compteur_rencontre = 0;
+        jour = jour + 1;
+        var round_oxygene = Math.floor(oxygene/2);
+        oxygene = oxygene - round_oxygene;
+        compteur_refus = 0;
     }
 }
