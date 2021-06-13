@@ -1983,17 +1983,18 @@ function remove_banquier(){
             proc_exploratrice = false;
             proc_coffre = false;
         }, 2000);
+        compteur_rencontre = 0;
+        jour = jour + 1;
+        var round_oxygene = Math.floor(oxygene/2);
+        oxygene = oxygene - round_oxygene;
+        var round_eau_soleil = Math.round((eau + soleil)/6);
+        if(round_eau_soleil >= 2){
+            population = population + round_eau_soleil;
+        }
+        if(round_eau_soleil < 2){
+            population = population - round_eau_soleil;
+        }
+        compteur_refus = 0;
     }
-    compteur_rencontre = 0;
-    jour = jour + 1;
-    var round_oxygene = Math.floor(oxygene/2);
-    oxygene = oxygene - round_oxygene;
-    var round_eau_soleil = Math.round((eau + soleil)/6);
-    if(round_eau_soleil >= 2){
-        population = population + round_eau_soleil;
-    }
-    if(round_eau_soleil < 2){
-        population = population - round_eau_soleil;
-    }
-    compteur_refus = 0;
+    
 }
