@@ -1,3 +1,5 @@
+var keys;
+
 //ressources//
 var eau = 5;
 var soleil = 5;
@@ -33,11 +35,12 @@ var new_plante_banquiere_3;
 var new_plante_exploratrice;
 var new_plante_coffre;
 
-//generation aléa et booleans pour check//
+//generation aléa des pnj et booleans pour check//
 var plante_presente = false;
 var plante_cree = false;
 var arrivee_plante_random;
 var numero_random;
+var numero_random_2;
 
 //boutons//
 var bouton_oui;
@@ -71,6 +74,7 @@ var objectif = 0;
 
 //hud aled//
 var affichage_hud;
+var fleche;
 var hud_affiche = false;
 var jauge_soleil_vide;
 var jauge_soleil_1;
@@ -138,6 +142,12 @@ var jauge_oxygene_7;
 var jauge_oxygene_8;
 var jauge_oxygene_9;
 var jauge_oxygene_10;
+var picto_hud_eau;
+var picto_hud_soleil;
+var picto_hud_terreau;
+var picto_hud_population;
+var picto_hud_oxygene;
+var picto_hud_objectif;
 
 //anti cheese//
 var compteur_refus = 0;
@@ -169,6 +179,23 @@ var disjoncteur_3;
 var disjoncteur_4;
 var disjoncteur_5;
 
+//gameover//
+var gameOver = false;
+var new_plante_astronaute_2;
+var new_plante_meteo_2;
+var new_plante_scientifique_2;
+var new_plante_exploratrice_2;
+var new_plante_coffre_2;
+var new_plante_banquiere_4;
+var ecran_noir;
+
+var fleche_utilisee = false;
+
+var ecran_titre_2;
+
+var deroulement_commence = false;
+var deroulement_2 = false;
+
 class SceneOne extends Phaser.Scene{
     constructor(){
         super("sceneOne");
@@ -187,15 +214,15 @@ class SceneOne extends Phaser.Scene{
         this.load.image('plante_coffre', '_assets/_perso/sac.png');
         
         //assets picto//
-        this.load.image('picto_eau', '_assets/picto_eau.png');
-        this.load.image('picto_soleil', '_assets/picto_soleil.png');
-        this.load.image('picto_terreau', '_assets/picto_terrau.png');
-        this.load.image('picto_oxygene', '_assets/picto_oxygene.png');
-        this.load.image('picto_population', '_assets/picto_population.png');
+        this.load.image('picto_eau', '_assets/_ui/eau.png');
+        this.load.image('picto_soleil', '_assets/_ui/soleil.png');
+        this.load.image('picto_terreau', '_assets/_ui/terreau.png');
+        this.load.image('picto_oxygene', '_assets/_ui/O2.png');
+        this.load.image('picto_population', '_assets/_ui/population.png');
         
         //assets boutons//
-        this.load.image('bouton_oui', '_assets/bouton_oui.png');
-        this.load.image('bouton_non', '_assets/bouton_non.png');
+        this.load.image('bouton_oui', '_assets/_ui/pouceVert.png');
+        this.load.image('bouton_non', '_assets/_ui/pouceRouge.png');
         
         //hud//
         this.load.image('hud', '_assets/placeholder_hud.png');
@@ -210,6 +237,7 @@ class SceneOne extends Phaser.Scene{
         this.load.image('jauge_8', '_assets/_ui/jauge_8.png');
         this.load.image('jauge_9', '_assets/_ui/jauge_9.png');
         this.load.image('jauge_10', '_assets/_ui/jauge_10.png');
+        this.load.spritesheet('fleche', '_assets/_ui/menuJauge_spritesheet.png', {frameWidth: 46, frameHeight: 46});
         
         //background//
         this.load.image('bg_jour_1', '_assets/_decor/fond_espace/jour1.png');
@@ -235,8 +263,18 @@ class SceneOne extends Phaser.Scene{
         this.load.image('disjoncteur_3', '_assets/_decor/etat_disjoncteur/niveau2.png');
         this.load.image('disjoncteur_4', '_assets/_decor/etat_disjoncteur/niveau3.png');
         this.load.image('disjoncteur_5', '_assets/_decor/etat_disjoncteur/niveau4.png');
+        
+        //ecran gameover//
+        this.load.image('ecran_noir', '_assets/_ecranTitre/ecranDefaite.png');
+        
+        this.load.image('ecran_fin', '_assets/_ecranTitre/generique.png');
+        
+        this.load.image('blackscreen', '_assets/_ui/ecran_noir.jpg');
+        
     }
     create(){
+        
+        
         
         //controles//
         keys = this.input.keyboard.addKeys({
@@ -274,8 +312,75 @@ class SceneOne extends Phaser.Scene{
         disjoncteur_4 = this.add.image(550, 325, 'disjoncteur_4').setVisible(false);
         disjoncteur_5 = this.add.image(550, 325, 'disjoncteur_5').setVisible(false);
         
+        
+        
+        //ressources hud//
+        picto_eau = this.add.sprite(50, 390, 'picto_eau').setVisible(false); 
+        picto_soleil = this.add.sprite(120, 390, 'picto_soleil').setVisible(false);
+        picto_terreau = this.add.sprite(190, 390, 'picto_terreau').setVisible(false);
+        picto_oxygene = this.add.sprite(260, 390, 'picto_oxygene').setVisible(false);
+        picto_population = this.add.sprite(330, 390, 'picto_population').setVisible(false);
+
+        
+        //pictos ressources demandees//
+        demande_eau = this.add.sprite(650, 120, 'picto_eau').setVisible(false);
+        demande_soleil = this.add.sprite(650, 180, 'picto_soleil').setVisible(false);
+        demande_oxygene = this.add.sprite(650, 240, 'picto_oxygene').setVisible(false);
+        demande_terreau = this.add.sprite(650, 300, 'picto_terreau').setVisible(false);
+              
+        //plantes//
+        plante_carnivore = this.add.sprite(180, 220, 'plante_carnivore');
+        
+        plante_astronaute = this.physics.add.group();
+        plante_meteo = this.physics.add.group();
+        plante_scientifique = this.physics.add.group();
+        plante_banquiere = this.physics.add.group();
+        plante_exploratrice = this.physics.add.group();
+        plante_coffre = this.physics.add.group();
+        
+        //boutons//
+        bouton_oui = this.add.sprite(350, 150, 'bouton_oui').setVisible(false);
+        bouton_non = this.add.sprite(350, 250, 'bouton_non').setVisible(false);
+        bouton_oui.setInteractive();
+        bouton_non.setInteractive();
+        
         //hud//
         affichage_hud = this.add.image(640, 400, 'hud').setVisible(false);
+        fleche = this.add.sprite(50, 350, 'fleche').setInteractive();
+        
+        this.anims.create({
+            key:'fleche',
+            frames: this.anims.generateFrameNumbers('fleche', {start: 0, end: 0}),
+            repeat: -1
+        });
+        this.anims.create({
+            key:'fleche_hover',
+            frames: this.anims.generateFrameNumbers('fleche', {start: 1, end: 1}),
+            repeat: -1
+        });
+        this.anims.create({
+            key:'fleche_click',
+            frames: this.anims.generateFrameNumbers('fleche', {start: 2, end: 2}),
+            repeat: -1
+        });
+        
+        fleche.on('pointerover', function(){
+            fleche.anims.play('fleche_hover', true);
+        });
+        
+        fleche.on('pointerout', function(){
+            fleche.anims.play('fleche', true);
+        });
+        
+        fleche.on('pointerdown', function(){
+            fleche.anims.play('fleche_click', true);
+            if(hud_affiche == false){
+                hud_affiche = true;
+            }
+            else {
+                hud_affiche = false;
+            }
+        }, this);
         //jauges BEAUCOUP DE JAUGES//
         //jauges eau//
         jauge_eau_vide = this.add.image(140, 400, 'jauge_vide').setVisible(false);
@@ -350,35 +455,13 @@ class SceneOne extends Phaser.Scene{
         jauge_objectif_9 = this.add.image(1205, 400, 'jauge_9').setVisible(false);
         jauge_objectif_10 = this.add.image(1205, 400, 'jauge_10').setVisible(false);
         
-        //ressources hud//
-        picto_eau = this.add.sprite(50, 390, 'picto_eau').setVisible(false); 
-        picto_soleil = this.add.sprite(120, 390, 'picto_soleil').setVisible(false);
-        picto_terreau = this.add.sprite(190, 390, 'picto_terreau').setVisible(false);
-        picto_oxygene = this.add.sprite(260, 390, 'picto_oxygene').setVisible(false);
-        picto_population = this.add.sprite(330, 390, 'picto_population').setVisible(false);
-
-        
-        //pictos ressources demandees//
-        demande_eau = this.add.sprite(650, 120, 'picto_eau').setVisible(false);
-        demande_soleil = this.add.sprite(650, 180, 'picto_soleil').setVisible(false);
-        demande_oxygene = this.add.sprite(650, 240, 'picto_oxygene').setVisible(false);
-        demande_terreau = this.add.sprite(650, 300, 'picto_terreau').setVisible(false);
-              
-        //plantes//
-        plante_carnivore = this.add.sprite(180, 220, 'plante_carnivore');
-        
-        plante_astronaute = this.physics.add.group();
-        plante_meteo = this.physics.add.group();
-        plante_scientifique = this.physics.add.group();
-        plante_banquiere = this.physics.add.group();
-        plante_exploratrice = this.physics.add.group();
-        plante_coffre = this.physics.add.group();
-        
-        //boutons//
-        bouton_oui = this.add.sprite(350, 150, 'bouton_oui').setVisible(false);
-        bouton_non = this.add.sprite(350, 250, 'bouton_non').setVisible(false);
-        bouton_oui.setInteractive();
-        bouton_non.setInteractive();
+        //pictos hud//
+        picto_hud_eau = this.add.image(40, 400, 'picto_eau').setVisible(false);
+        picto_hud_soleil = this.add.image(250, 400, 'picto_soleil').setVisible(false);
+        picto_hud_oxygene = this.add.image(460, 400, 'picto_oxygene').setVisible(false);
+        picto_hud_terreau = this.add.image(675, 400, 'picto_terreau').setVisible(false);
+        picto_hud_population = this.add.image(885, 400, 'picto_population').setVisible(false);
+        picto_hud_objectif = this.add.image(1095, 400, 'picto_eau').setVisible(false);
         
         bouton_oui.on('pointerdown', function(){
             bouton_oui.setVisible(false);
@@ -468,6 +551,10 @@ class SceneOne extends Phaser.Scene{
             }
             if(banquier_doit_partir == true){
                 new_plante_banquiere.setVelocityX(300);
+                if(compteur_refus == 3){
+                    new_plante_banquiere_2.setVelocityX(300);
+                    new_plante_banquiere_3.setVelocityX(300);
+                }
                 demande_eau.setVisible(false);
                 demande_soleil.setVisible(false);
                 demande_terreau.setVisible(false);
@@ -523,9 +610,59 @@ class SceneOne extends Phaser.Scene{
             }
         }, this);
         
+        //ecran game_over//
+        ecran_noir = this.add.image(640, 216, 'ecran_noir').setVisible(false);
+        ecran_titre_2 = this.physics.add.sprite(640, 1400, 'generique').setVisible(false);
+        blackscreen = this.add.image(640, 216, 'blackscreen').setVisible(false);
         
     }
     update(){
+        
+        //gameOver//
+        if (gameOver == false){
+            if (eau <= 0 || oxygene <= 0 || population <= 0 || soleil <= 0 || terreau <= 0){
+                gameOver = true;
+                plante_presente = true;
+                plante_cree = true;
+                new_plante_exploratrice_2 = plante_exploratrice.create(1400, 300, 'plante_exploratrice');
+                new_plante_exploratrice_2.setVelocityX(-400);
+                new_plante_astronaute_2 = plante_astronaute.create(1500, 300, 'plante_astronaute');
+                new_plante_astronaute_2.setVelocityX(-400);
+                new_plante_meteo_2 = plante_meteo.create(1600, 300, 'plante_meteo');
+                new_plante_meteo_2.setVelocityX(-400);
+                new_plante_coffre_2 = plante_coffre.create(1700, 300, 'plante_coffre');
+                new_plante_coffre_2.setVelocityX(-400);
+                new_plante_scientifique_2 = plante_scientifique.create(1800, 300, 'plante_scientifique');
+                new_plante_scientifique_2.setVelocityX(-400);
+                new_plante_banquiere_4 = plante_banquiere.create(1900, 300, 'plante_banquiere');
+                new_plante_banquiere_4.setVelocityX(-400);
+                setTimeout(function(){ecran_noir.setVisible(true)}, 6000);
+                setTimeout(function(){
+                    eau = 5;
+                    soleil = 5;
+                    oxygene = 5;
+                    terreau = 5;
+                    population = 5;
+                    plante_presente = false;
+                    plante_cree = false;
+                    numero_coffre;
+                    coffre_genere = false;
+                    proc_banquier = false;
+                    proc_200 = false;
+                    proc_400 = false;
+                    proc_600 = false;
+                    banquier_doit_partir = false;
+                    jour = 0;
+                    compteur_rencontre = 0;
+                    objectif = 0;
+                    compteur_refus = 0;
+                    compteur_vitre = 0;
+                    compteur_disjoncteur = 0
+                    gameOver = false;
+                    ecran_noir.setVisible(false);
+                }, 9000);
+            }
+        }
         
         //affichage background selon jour//
         if(jour == 0){
@@ -568,47 +705,86 @@ class SceneOne extends Phaser.Scene{
         //affichage vitre//
         if(compteur_vitre == 0){
             vitre_1.setVisible(true);
+            vitre_2.setVisible(false);
+            vitre_3.setVisible(false);
+            vitre_4.setVisible(false);
+            vitre_5.setVisible(false);
         }
         if(compteur_vitre == 1){
             vitre_1.setVisible(false);
+            vitre_3.setVisible(false);
+            vitre_4.setVisible(false);
+            vitre_5.setVisible(false);
             vitre_2.setVisible(true);
         }
         if(compteur_vitre == 2){
+            vitre_1.setVisible(false);
             vitre_2.setVisible(false);
+            vitre_4.setVisible(false);
+            vitre_5.setVisible(false);
             vitre_3.setVisible(true);
         }
         if(compteur_vitre == 3){
             vitre_3.setVisible(false);
+            vitre_1.setVisible(false);
+            vitre_2.setVisible(false);
+            vitre_5.setVisible(false);
             vitre_4.setVisible(true);
         }
         if(compteur_vitre == 4){
             vitre_4.setVisible(false);
+            vitre_3.setVisible(false);
+            vitre_2.setVisible(false);
+            vitre_1.setVisible(false);
             vitre_5.setVisible(true);
         }
         
         //affichage disjoncteur//
         if(compteur_disjoncteur == 0){
             disjoncteur_5.setVisible(true);
+            disjoncteur_1.setVisible(false);
+            disjoncteur_2.setVisible(false);
+            disjoncteur_3.setVisible(false);
+            disjoncteur_4.setVisible(false);
         }
         if(compteur_disjoncteur == 1){
             disjoncteur_5.setVisible(false);
+            disjoncteur_3.setVisible(false);
+            disjoncteur_2.setVisible(false);
+            disjoncteur_1.setVisible(false);
             disjoncteur_4.setVisible(true);
         }
         if(compteur_disjoncteur == 2){
             disjoncteur_4.setVisible(false);
+            disjoncteur_1.setVisible(false);
+            disjoncteur_2.setVisible(false);
+            disjoncteur_5.setVisible(false);
             disjoncteur_3.setVisible(true);
         }
         if(compteur_disjoncteur == 3){
             disjoncteur_3.setVisible(false);
+            disjoncteur_1.setVisible(false);
+            disjoncteur_4.setVisible(false);
+            disjoncteur_5.setVisible(false);
             disjoncteur_2.setVisible(true);
         }
         if(compteur_disjoncteur == 4){
             disjoncteur_2.setVisible(false);
+            disjoncteur_3.setVisible(false);
+            disjoncteur_4.setVisible(false);
+            disjoncteur_5.setVisible(false);
             disjoncteur_1.setVisible(true);
         }
         
         //hud//
         if(hud_affiche == false){
+            picto_hud_eau.setVisible(false);
+            picto_hud_soleil.setVisible(false);
+            picto_hud_oxygene.setVisible(false);
+            picto_hud_terreau.setVisible(false);
+            picto_hud_population.setVisible(false);
+            picto_hud_objectif.setVisible(false);
+            
             affichage_hud.setVisible(false);
             //eau//
             jauge_eau_vide.setVisible(false);
@@ -684,6 +860,13 @@ class SceneOne extends Phaser.Scene{
             jauge_objectif_10.setVisible(false);
         }
         else if (hud_affiche == true){
+            picto_hud_eau.setVisible(true);
+            picto_hud_soleil.setVisible(true);
+            picto_hud_oxygene.setVisible(true);
+            picto_hud_terreau.setVisible(true);
+            picto_hud_population.setVisible(true);
+            picto_hud_objectif.setVisible(true);
+            
             affichage_hud.setVisible(true);
             //jauges eau//
             if(eau == 10){
@@ -1555,7 +1738,15 @@ class SceneOne extends Phaser.Scene{
             plante_presente = true;
             plante_cree = true;
             banquier_doit_partir = true;
-            this.add.text(400, 200, 'youpi direction espace', {fontSize: '48px', fill: '#FFF'});
+            ecran_titre_2.setVisible(true);
+            if (deroulement_2 == true){
+                ecran_titre_2.setVelocityY(-100);
+            }
+            setTimeout(function(){
+                deroulement_2 = false;
+                ecran_titre_2.destroy();
+                blackscreen.setVisible(true);
+            }, 24000);
         }
         
         if(plante_presente == true && plante_cree == true && numero_random == 2 && coffre_genere == false && proc_banquier == false){
@@ -1567,8 +1758,8 @@ class SceneOne extends Phaser.Scene{
         //generation aléatoire//
         if (plante_presente == false && keys.space.isDown){
             plante_presente = true;
-            numero_random = getRandomInt(5);
             compteur_rencontre = compteur_rencontre + 1;
+            numero_random = getRandomInt(5);            
         }
         
         //arrivee plantes a l'ecran
@@ -1639,8 +1830,6 @@ class SceneOne extends Phaser.Scene{
         //reset journee, arrivee banquier//
         if(compteur_rencontre == 4 && banquier_doit_partir == false){
             if(compteur_refus < 3){
-                var round_eau_soleil = Math.round((eau + soleil)/2);
-                population = population + round_eau_soleil;
                 proc_banquier = true;
                 plante_presente = true;
                 plante_cree = true;
@@ -1653,8 +1842,6 @@ class SceneOne extends Phaser.Scene{
                 }, 2000);
             }
             if(compteur_refus == 3){
-                var round_eau_soleil = Math.round((eau + soleil)/2);
-                population = population + round_eau_soleil;
                 proc_banquier = true;
                 plante_presente = true;
                 plante_cree = true;
@@ -1738,14 +1925,11 @@ function remove_banquier(){
         }, 2000);
         compteur_rencontre = 0;  
         jour = jour + 1;
-        if (eau + soleil >= 2 && eau + soleil < 4){
+        if (population > 2 && population <= 8){
+            oxygene = oxygene + 1;
+        }
+        if (population > 8){
             oxygene = oxygene + 2;
-        }
-        if (eau + soleil >= 4 && eau + soleil < 6){
-            oxygene = oxygene + 4;
-        }
-        if (eau + soleil >= 6){
-            oxygene = oxygene + 6;
         }
     }
     if(compteur_refus == 3){
@@ -1757,11 +1941,23 @@ function remove_banquier(){
             proc_banquier = false;
             plante_presente = false;
             plante_cree = false;
+            proc_astronaute = false;
+            proc_meteo = false;
+            proc_scientifique = false;
+            proc_exploratrice = false;
+            proc_coffre = false;
         }, 2000);
-        compteur_rencontre = 0;
-        jour = jour + 1;
-        var round_oxygene = Math.floor(oxygene/2);
-        oxygene = oxygene - round_oxygene;
-        compteur_refus = 0;
     }
+    compteur_rencontre = 0;
+    jour = jour + 1;
+    var round_oxygene = Math.floor(oxygene/2);
+    oxygene = oxygene - round_oxygene;
+    var round_eau_soleil = Math.round((eau + soleil)/6);
+    if(round_eau_soleil >= 2){
+        population = population + round_eau_soleil;
+    }
+    if(round_eau_soleil < 2){
+        population = population - round_eau_soleil;
+    }
+    compteur_refus = 0;
 }
