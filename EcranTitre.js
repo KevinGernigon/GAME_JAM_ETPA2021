@@ -9,6 +9,8 @@ var background_titre;
 var ecran_credits;
 var deroulement = false;
 
+var musique_generique
+
 class EcranTitre extends Phaser.Scene{
     constructor(){
         super("ecranTitre");
@@ -26,7 +28,7 @@ class EcranTitre extends Phaser.Scene{
     }
     create(){
         
-        son_generique = this.sound.add('son_generique');
+        musique_generique = this.sound.add('son_generique');
         
         background_titre = this.add.image(640, 216, 'ecran_titre');
         
@@ -119,7 +121,7 @@ class EcranTitre extends Phaser.Scene{
         });
         
         bouton_credits.on('pointerdown', function(){
-            son_generique.play();
+            musique_generique.play();
             bouton_credits.anims.play('credits_click', true);
             ecran_credits.setVisible(true);
             deroulement = true;
