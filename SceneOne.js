@@ -56,6 +56,7 @@ var picto_population;
 //rng coffre//
 var numero_coffre;
 var coffre_genere = false;
+var rng_coffre_genere = false;
 
 //proc banquier//
 var proc_banquier = false;
@@ -188,6 +189,14 @@ var new_plante_exploratrice_2;
 var new_plante_coffre_2;
 var new_plante_banquiere_4;
 var ecran_noir;
+var plante_exploratrice_presente = false;
+var plante_meteo_presente = false;
+var plante_coffre_presente = false;
+var plante_scientifique_presente = false;
+var plante_astronaute_presente = false;
+var plante_banquiere_presente = false;
+var plante_banquiere_2_presente = false;
+var plante_banquiere_3_presente = false;
 
 var fleche_utilisee = false;
 
@@ -500,7 +509,7 @@ class SceneOne extends Phaser.Scene{
                 demande_soleil.setVisible(false);
                 demande_terreau.setVisible(false);
                 demande_oxygene.setVisible(false);
-                remove_exploratrice();       
+                remove_exploratrice();
             }
             if (plante_presente == true && numero_random == 1 && plante_cree == true && proc_banquier == false){
                 oxygene = oxygene - 1;
@@ -544,6 +553,7 @@ class SceneOne extends Phaser.Scene{
                 if (numero_coffre == 9){
                     population = population - 1;
                 }
+                rng_coffre_genere = false;
                 new_plante_coffre.setVelocityX(300);
                 demande_eau.setVisible(false);
                 demande_soleil.setVisible(false);
@@ -575,7 +585,7 @@ class SceneOne extends Phaser.Scene{
             }
             if(banquier_doit_partir == true){
                 new_plante_banquiere.setVelocityX(300);
-                if(compteur_refus == 3){
+                if(compteur_refus >= 3){
                     new_plante_banquiere_2.setVelocityX(300);
                     new_plante_banquiere_3.setVelocityX(300);
                 }
@@ -642,6 +652,12 @@ class SceneOne extends Phaser.Scene{
     }
     update(){
         
+        //rng coffre//
+        if (rng_coffre_genere == false){
+            rng_coffre_genere = true;
+            numero_coffre = getRandomInt(9);
+        }
+        
         //gameOver//
         if (gameOver == false){
             if (eau <= 0 || oxygene <= 0 || population <= 0 || soleil <= 0 || terreau <= 0){
@@ -663,8 +679,36 @@ class SceneOne extends Phaser.Scene{
                 new_plante_scientifique_2.setVelocityX(-400);
                 new_plante_banquiere_4 = plante_banquiere.create(1900, 300, 'plante_banquiere');
                 new_plante_banquiere_4.setVelocityX(-400);
-                setTimeout(function(){ecran_noir.setVisible(true)}, 6000);
+                if (plante_exploratrice_presente == true){
+                    new_plante_exploratrice.destroy();
+                }
+                if (plante_astronaute_presente == true){
+                    remove_astronaute();
+                }
+                if (plante_coffre_presente == true){
+                    remove_coffre();
+                }
+                if (plante_meteo_presente == true){
+                    remove_meteo();
+                }
+                if (plante_scientifique_presente == true){
+                    remove_scientifique();
+                }
+                if (plante_banquiere_presente == true){
+                    remove_banquiere();
+                }
+                /*if (plante_banquiere_2_presente == true){
+                    new_plante_banquiere_2.destroy();
+                }
+                if (plante_banquiere_3_presente == true){
+                    new_plante_banquiere_3.destroy();
+                }*/
                 setTimeout(function(){
+                    ecran_noir.setVisible(true);
+                    theme_musique.stop();
+                    ambiance_musique.stop();
+                }, 6000);
+                setTimeout(function(){ 
                     eau = 5;
                     soleil = 5;
                     oxygene = 5;
@@ -679,6 +723,14 @@ class SceneOne extends Phaser.Scene{
                     proc_400 = false;
                     proc_600 = false;
                     banquier_doit_partir = false;
+                    plante_exploratrice_presente = false;
+                    plante_meteo_presente = false;
+                    plante_coffre_presente = false;
+                    plante_scientifique_presente = false;
+                    plante_astronaute_presente = false;
+                    plante_banquiere_presente = false;
+                    plante_banquiere_2_presente = false;
+                    plante_banquiere_3_presente = false;
                     jour = 0;
                     compteur_rencontre = 0;
                     objectif = 0;
@@ -687,6 +739,8 @@ class SceneOne extends Phaser.Scene{
                     compteur_disjoncteur = 0
                     gameOver = false;
                     ecran_noir.setVisible(false);
+                    theme_musique.play();
+                    ambiance_musique.play();
                 }, 9000);
             }
         }
@@ -1787,12 +1841,11 @@ class SceneOne extends Phaser.Scene{
         
         if(plante_presente == true && plante_cree == true && numero_random == 2 && coffre_genere == false && proc_banquier == false){
             coffre_genere = true;
-            numero_coffre = getRandomInt(9);
         }
         
         
         //generation aléatoire//
-        if (plante_presente == false && keys.space.isDown){
+        if (plante_presente == false){
             plante_presente = true;
             compteur_rencontre = compteur_rencontre + 1;
             numero_random = getRandomInt(5);            
@@ -1800,6 +1853,7 @@ class SceneOne extends Phaser.Scene{
         
         //arrivee plantes a l'ecran
         if (plante_presente == true && numero_random == 0 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
+            plante_exploratrice_presente = true;
             plante_cree = true;
             new_plante_exploratrice = plante_exploratrice.create(1400, 300, 'plante_exploratrice');
             new_plante_exploratrice.setVelocityX(-300);
@@ -1815,6 +1869,7 @@ class SceneOne extends Phaser.Scene{
         }
         
         if (plante_presente == true && numero_random == 1 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
+            plante_astronaute_presente = true;
             plante_cree = true;
             new_plante_astronaute = plante_astronaute.create(1400, 300, 'plante_astronaute');
             new_plante_astronaute.setVelocityX(-300);
@@ -1827,6 +1882,7 @@ class SceneOne extends Phaser.Scene{
         }
         
         if (plante_presente == true && numero_random == 2 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
+            plante_coffre_presente = true;
             plante_cree = true;
             new_plante_coffre = plante_coffre.create(1400, 300, 'plante_coffre');
             new_plante_coffre.setVelocityX(-300);
@@ -1838,6 +1894,7 @@ class SceneOne extends Phaser.Scene{
         }
         
         if (plante_presente == true && numero_random == 3 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
+            plante_meteo_presente = true;
             plante_cree = true;
             new_plante_meteo = plante_meteo.create(1400, 300, 'plante_meteo');
             new_plante_meteo.setVelocityX(-300);
@@ -1852,6 +1909,7 @@ class SceneOne extends Phaser.Scene{
         }
         
         if (plante_presente == true && numero_random == 4 && plante_cree == false && proc_banquier == false && compteur_rencontre < 4){
+            plante_scientifique_presente = true;
             plante_cree = true;
             new_plante_scientifique = plante_scientifique.create(1400, 300, 'plante_scientifique');
             new_plante_scientifique.setVelocityX(-300);
@@ -1865,6 +1923,7 @@ class SceneOne extends Phaser.Scene{
         
         //reset journee, arrivee banquier//
         if(compteur_rencontre == 4 && banquier_doit_partir == false){
+            plante_banquiere_presente = true;
             if(compteur_refus < 3){
                 proc_banquier = true;
                 plante_presente = true;
@@ -1877,7 +1936,9 @@ class SceneOne extends Phaser.Scene{
                     bouton_oui.setVisible(true);
                 }, 2000);
             }
-            if(compteur_refus == 3){
+            if(compteur_refus >= 3){
+                plante_banquiere_2_presente = true;
+                plante_banquiere_3_presente = true;
                 proc_banquier = true;
                 plante_presente = true;
                 plante_cree = true;
@@ -1916,6 +1977,7 @@ function getRandomInt(max) {
 
 function remove_exploratrice(){
     setTimeout(function(){
+        plante_exploratrice_presente = false;
         new_plante_exploratrice.destroy();
         plante_presente = false;
         plante_cree = false;
@@ -1923,6 +1985,7 @@ function remove_exploratrice(){
 }
 function remove_astronaute(){
     setTimeout(function(){
+        plante_astronaute_presente = false;
         new_plante_astronaute.destroy();
         plante_presente = false;
         plante_cree = false;
@@ -1930,6 +1993,7 @@ function remove_astronaute(){
 }
 function remove_coffre(){
     setTimeout(function(){
+        plante_coffre_presente = false;
         new_plante_coffre.destroy();
         plante_presente = false;
         plante_cree = false;
@@ -1937,6 +2001,7 @@ function remove_coffre(){
 }
 function remove_meteo(){
     setTimeout(function(){
+        plante_meteo_presente = false;
         new_plante_meteo.destroy();
         plante_presente = false;
         plante_cree = false;
@@ -1944,14 +2009,16 @@ function remove_meteo(){
 }
 function remove_scientifique(){
     setTimeout(function(){
+        plante_scientifique_presente = false;
         new_plante_scientifique.destroy();
         plante_presente = false;
         plante_cree = false;
     }, 2000);
 }
-function remove_banquier(){
+function remove_banquier(){  
     if(compteur_refus < 3){
         setTimeout(function(){
+            plante_banquiere_presente = false;
             new_plante_banquiere.destroy();
             banquier_doit_partir = false;
             proc_banquier = false;
@@ -1968,8 +2035,11 @@ function remove_banquier(){
             oxygene = oxygene + 2;
         }
     }
-    if(compteur_refus == 3){
+    if(compteur_refus >= 3){
         setTimeout(function(){
+            plante_banquiere_presente = false;
+            plante_banquiere_2_presente = false;
+            plante_banquiere_3_presente = false;
             new_plante_banquiere.destroy();
             new_plante_banquiere_2.destroy();
             new_plante_banquiere_3.destroy();
